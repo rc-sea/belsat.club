@@ -1,5 +1,4 @@
 import picamera
-import vcgencmd
 import datetime as dt
 from time import sleep
 from picamera import PiCamera

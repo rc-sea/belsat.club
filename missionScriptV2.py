@@ -2,6 +2,8 @@ import picamera
 import datetime as dt
 from time import sleep
 from picamera import PiCamera
+import os
+
 start = 0
 #start = time until camera starts
 vloop = 30
@@ -11,7 +13,7 @@ ploop = 30
 vtime = 150
 blinkon = 1
 blinkoff = 4
-blinkloop = 3
+blinkloop = 30
 #time = length of the video you want running(if you want a blinking led this is
         #split into blinktime, blinkbreak and blinkloop)
         #vtime = blinkloop(blinkon + blinkoff)
@@ -22,6 +24,8 @@ pwait = 5
 #------------------------------------------------------
 
 print("here")
+
+os.system("sh trigger.sh")
 
 camera = PiCamera()
 camera.resolution = (1024, 768)
@@ -36,8 +40,10 @@ for x in range(vloop):#how many times loop will run
     camera.start_recording("video" + str(x) + ".h264")
 
     for x in range(blinkloop):
+        os.system("sh blinkon.sh")
         #blink green light on
         sleep(blinkon)
+        os.system("sh blinkoff.sh")
         #blink green off
         sleep(blinkoff)
     #length of video
